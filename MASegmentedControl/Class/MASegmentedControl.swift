@@ -217,8 +217,6 @@ public class MASegmentedControl: UIControl {
         self.buttonImages.removeAll()
         self.buttonColors.removeAll()
         self.thumbView.alpha = 0
-        
-        self.selectedSegmentIndex = 0
         self.setSegmentedWith(items: items)
 
         UIView.animate(withDuration: 0.4) {
