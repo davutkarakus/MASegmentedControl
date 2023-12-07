@@ -274,10 +274,21 @@ public class MASegmentedControl: UIControl {
     
     // MARK: THUMBVIEW LAYOUT
     private func setThumbView() {
-
         let thumbViewHeight = bottomLineThumbView ? MASegmentedControl.bottomLineThumbViewHeight : bounds.height - padding * 2
         let thumbViewWidth = fillEqually ? (bounds.width / CGFloat(buttons.count)) - padding * 2 : bounds.height - padding * 2
-        let thumbViewPositionX = padding
+        
+        var thumbViewPositionX: CGFloat = 0
+        if fillEqually {
+            thumbViewPositionX = CGFloat(selectedSegmentIndex) * (bounds.width / CGFloat(buttons.count)) + padding
+        } else {
+            // Eğer fillEqually false ise, thumbView'ı ilk veya son düğmeye göre konumlandırın
+            if selectedSegmentIndex == 0 {
+                thumbViewPositionX = padding
+            } else if selectedSegmentIndex == buttons.count - 1 {
+                thumbViewPositionX = bounds.width - thumbViewWidth - padding
+            }
+        }
+
         let thumbViewPositionY = bottomLineThumbView ? bounds.height - thumbViewHeight - padding : (bounds.height - thumbViewHeight) / 2
         
         thumbView.frame = CGRect(x: thumbViewPositionX, y: thumbViewPositionY, width: thumbViewWidth, height: thumbViewHeight)
