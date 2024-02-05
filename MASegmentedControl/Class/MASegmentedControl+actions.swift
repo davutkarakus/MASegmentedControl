@@ -26,8 +26,22 @@ extension MASegmentedControl {
     @objc internal func buttonTapped(button: UIButton) {
         
         for (btnIndex, btn) in self.buttons.enumerated() {
+            
+            btn.setTitleColor(textColor, for: .normal)
+            if !itemsWithDynamicColor {
+                if !buttonsWithDynamicImages {
+                    btn.tintColor = buttonColorForNormal
+                }
+            }
             if btn == button {
                 selectedSegmentIndex = btnIndex
+                fillEqually ?  moveThumbView(at: btnIndex) : moveThumbViewFillEquallyFalse(at: btnIndex)
+                btn.setTitleColor(selectedTextColor, for: .normal)
+                if !itemsWithDynamicColor {
+                    if !buttonsWithDynamicImages {
+                        btn.tintColor = buttonColorForSelected
+                    }
+                }
             }
         }
         self.performAction()
